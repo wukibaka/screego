@@ -195,19 +195,22 @@ export const Room = ({
 
     const playAudio = () => {
         if (audioElement) {
-            audioElement.play().then(() => {
-                setPlayingAudio(true);
-            }).catch((e) => {
-                console.log('Could not play main audio', e);
-            });
+            audioElement
+                .play()
+                .then(() => {
+                    setPlayingAudio(true);
+                })
+                .catch((e) => {
+                    console.log('Could not play main audio', e);
+                });
         }
-    }
+    };
     const pauseAudio = () => {
         if (audioElement) {
             audioElement.pause();
             setPlayingAudio(false);
         }
-    }
+    };
 
     const toggleAudio = () => {
         if (playingAudio) {
@@ -215,7 +218,7 @@ export const Room = ({
         } else {
             playAudio();
         }
-    }
+    };
 
     return (
         <div className={classes.videoContainer}>
@@ -257,12 +260,7 @@ export const Room = ({
                 </Typography>
             )}
 
-            {audioStream && (
-                <audio
-                    ref={setAudioElement}
-                    style={{ display: 'none' }}
-                />
-            )}
+            {audioStream && <audio ref={setAudioElement} style={{display: 'none'}} />}
 
             {controlVisible && (
                 <Paper className={classes.control} elevation={10} {...setHoverState}>
@@ -298,13 +296,13 @@ export const Room = ({
                             <PeopleIcon fontSize="large" />
                         </Badge>
                     </Tooltip>
-                    <Tooltip title={playingAudio ? "Mute Audio" : "Hear Audio"} arrow>
-                        <IconButton
-                            onClick={toggleAudio}
-                            disabled={audioDisabled}
-                            size="large"
-                        >
-                            {playingAudio && !audioDisabled ? <HeadsetIcon fontSize="large" /> : <HeadsetOff fontSize="large" />}
+                    <Tooltip title={playingAudio ? 'Mute Audio' : 'Hear Audio'} arrow>
+                        <IconButton onClick={toggleAudio} disabled={audioDisabled} size="large">
+                            {playingAudio && !audioDisabled ? (
+                                <HeadsetIcon fontSize="large" />
+                            ) : (
+                                <HeadsetOff fontSize="large" />
+                            )}
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Fullscreen" arrow>
@@ -336,13 +334,13 @@ export const Room = ({
                                 className={classes.smallVideoContainer}
                                 onClick={() => setSelectedStream(client.id)}
                             >
-                                {
-                                    client.videoStream && <Video
+                                {client.videoStream && (
+                                    <Video
                                         key={client.id}
                                         src={client.videoStream}
                                         className={classes.smallVideo}
                                     />
-                                }
+                                )}
                                 <Typography
                                     variant="subtitle1"
                                     component="div"

@@ -239,7 +239,9 @@ export const useRoom = (config: UIConfig): UseRoom => {
 
                                         const isVideo = kind === 'video';
 
-                                        const existingStream = current.clientStreams.find(({id}) => id === sid);
+                                        const existingStream = current.clientStreams.find(
+                                            ({id}) => id === sid
+                                        );
                                         if (existingStream) {
                                             if (isVideo) {
                                                 existingStream.videoStream = stream;
@@ -253,15 +255,15 @@ export const useRoom = (config: UIConfig): UseRoom => {
                                         return {
                                             ...current,
                                             clientStreams: [
-                                                ...current.clientStreams, 
+                                                ...current.clientStreams,
                                                 {
                                                     id: sid,
                                                     peer_id: peer,
                                                     videoStream: isVideo ? stream : undefined,
-                                                    audioStream: isVideo ? undefined : stream
-                                                }
-                                            ]
-                                        }
+                                                    audioStream: isVideo ? undefined : stream,
+                                                },
+                                            ],
+                                        };
                                     }),
                             }).then((peer) => (client.current[event.payload.id] = peer));
                             return;
